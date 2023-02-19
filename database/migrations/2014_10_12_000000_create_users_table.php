@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+           
+            $table->string('ref_code')->nullable(); // referral data
+            $table->string('super_code')->nullable();// your uplink data
+
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
