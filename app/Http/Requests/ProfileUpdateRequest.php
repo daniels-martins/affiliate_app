@@ -8,16 +8,23 @@ use Illuminate\Validation\Rule;
 
 class ProfileUpdateRequest extends FormRequest
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'name' => ['string', 'max:255'],
-            'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
-        ];
-    }
+   /**
+    * Get the validation rules that apply to the request.
+    *
+    * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+    */
+   public function rules(): array
+   {
+      return [
+         '*' => ['nullable', 'min:4'], //pls note that this '*' doesn't affect any input with the name : 'name', that's why i reset it in d next line.
+         'name' => ['string', 'min:8', 'max:255'],
+         'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+      ];
+   }
+
+
+   public function prepareForValidation()
+   {
+      
+   }
 }

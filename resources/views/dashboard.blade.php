@@ -19,7 +19,7 @@
                     <div class="upline bg-blue-400 p-3 rounded shadow-sm text-gray-700 my-5">
                         <p class="text-xl">My Upline Data </p> <br>
                         Super code: {{ auth()->user()->super_code ?? 'No super_code' }}<br><br>
-                        Upline: {{ $upline?->name ?? 'No upline' }}<br><br>
+                        Upline: {{ ucfirst(auth()->user()->getUpline('name')) ?? 'No upline' }}<br><br>
                     </div>
                     @if (auth()->user()->getDownlines())
                         <div class="downlines bg-green-400 p-3 rounded shadow-sm text-gray-700 my-5">
