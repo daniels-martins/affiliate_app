@@ -19,7 +19,7 @@ class ProfileUpdateRequest extends FormRequest
          '*' => ['nullable', 'min:4'], //pls note that this '*' doesn't affect any input with the name : 'name', that's why i reset it in d next line.
          'name' => ['string', 'min:8', 'max:255'],
          'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
-      ];
+      ]; 
    }
 
 
