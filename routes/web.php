@@ -55,8 +55,7 @@ Route::get('users/{user}', function (Request $request, User $user) {
 Route::get('users/{user}/downlines', function (User $user) {
    $reqUser = $user;
    $all_downlines = $user->getDownlines();
-   // return   (!$all_downlines) ? back()->with('warning', 'This user has no downlines')
-    return view('admin.pagez.users.downlines', compact('all_downlines', 'reqUser'));
+   return view('admin.pagez.users.downlines', compact('all_downlines', 'reqUser'));
 })->name('users.show.downlines');
 
 Route::get('/dashboard', [GeneralController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
