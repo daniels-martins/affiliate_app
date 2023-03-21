@@ -10,6 +10,8 @@ class GeneralController extends Controller
    public function index()
    {
       // for admins
-      return (auth()->user()->is_admin) ? view('admin.pagez.admin_dashboard') : view('dashboard');
+      // return (auth()->user()->is_admin) ? view('admin.pagez.admin_dashboard') : view('dashboard');
+
+      return view('dashboard');
    }
 }

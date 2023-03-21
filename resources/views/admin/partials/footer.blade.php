@@ -5,9 +5,9 @@
             <div class="w-full md:w-4/12 px-4">
                 <div class="text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left">
                     Copyright © <span id="get-current-year"></span>
-                    <a href="https://www.creative-tim.com?ref=njs-settings"
+                    <a href="https://www.landandcribs.com"
                         class="text-blueGray-500 hover:text-blueGray-700 text-sm font-semibold py-1">
-                        Imagine Tech Limited
+                        {{ env('APP_NAME') }}
                     </a>
 
                 </div>
@@ -15,8 +15,8 @@
             <div class="w-full md:w-8/12 px-4">
                 <ul class="flex flex-wrap list-none md:justify-end justify-center">
                     <li>
-                        <x-application-logo />
-
+                        {{-- <x-application-logo /> --}}
+                      <a class="text-blue-400" href="https://imagine.com.ng/"><em>Powered by </em> <strong> Imagine Tech</strong></a>
                     </li>
                     {{-- <li>
                         <a href="https://www.creative-tim.com?ref=njs-settings"

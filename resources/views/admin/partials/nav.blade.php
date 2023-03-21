@@ -8,14 +8,16 @@
             <i class="fas fa-bars"></i>
         </button>
         <a class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-            href="{{ route('dashboard') }}">
+            href="{{ route('admin_panel') }}">
             ADMIN PANEL <br><br>
             ADMIN: {{ auth()->user()->name }} <br><br>
             <span class="bg-red-200 py-3 ">
-               @if (isset($reqUser) and $reqUser->id !== auth()->user()->id) VIEWING: ({{ $reqUser->name  }}) @endif
+                @if (isset($reqUser) and $reqUser->id !== auth()->user()->id)
+                    VIEWING: ({{ $reqUser->name }})
+                @endif
             </span>
         </a>
-        <ul class="md:hidden items-center flex flex-wrap list-none">
+        {{-- <ul class="md:hidden items-center flex flex-wrap list-none">
             <li class="inline-block relative">
                 <a class="text-blueGray-500 block py-1 px-3" href="#pablo"
                     onclick="openDropdown(event,'notification-dropdown')"><i class="fas fa-bell"></i></a>
@@ -59,15 +61,15 @@
                         link</a>
                 </div>
             </li>
-        </ul>
+        </ul> --}}
         <div class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
             id="example-collapse-sidebar">
             <div class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200">
                 <div class="flex flex-wrap">
                     <div class="w-6/12">
                         <a class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                            href="../../index.html">
-                            Notus Tailwind JS
+                            href="{{ route('admin_panel') }}">
+                            {{ env('APP_NAME' ?? 'Imagine') }}
                         </a>
                     </div>
                     <div class="w-6/12 flex justify-end">
@@ -82,11 +84,11 @@
             <form class="mt-6 mb-4 md:hidden">
                 <div class="mb-3 pt-0">
                     <input type="text" placeholder="Search"
-                        class="border-0 px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
+                        class="border-0 px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal hidden" />
                 </div>
             </form>
             <!-- Divider -->
-            <hr class="my-4 md:min-w-full" />
+            <hr class="my-4 hidden md:block md:min-w-full" />
             <!-- Heading -->
             <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                 {{-- Admin Pages --}}
@@ -97,29 +99,52 @@
                 <li class="items-center">
                     <a href="{{ route('dashboard') }}"
                         class="text-xs uppercase py-3 font-bold block 
-                        {{ Route::currentRouteName() == 'dashboard' ? 'text-pink-500 hover:text-pink-600' : 'text-blueGray-700 hover:text-blueGray-500' }} ">
+                      {{ Route::currentRouteName() == 'dashboard' ? 'text-pink-500 hover:text-pink-600' : 'text-blueGray-700 hover:text-blueGray-500' }} ">
                         <i class="fas fa-tv mr-2 text-sm text-blueGray-300"></i>
-                        Dashboard
+                        Summary View
                     </a>
                 </li>
 
-                <li class="items-center">
-                    <a href="{{ route('setup') }}"
-                        class="text-xs uppercase py-3 font-bold block
-                        {{ Route::currentRouteName() == 'setup' ? 'text-pink-500 hover:text-pink-600' : 'text-blueGray-700 hover:text-blueGray-500' }} ">
-                        <i class="fas
-                        fa-tools mr-2 text-sm opacity-75"></i>
-                        Settings
-                    </a>
-                </li>
 
                 <li class="items-center">
-                    <a href="{{ route('users.index') }}"
-                        class="text-xs uppercase py-3 font-bold block
+                  <a href="{{ route('setup') }}"
+                      class="text-xs uppercase py-3 font-bold block
+                    {{ Route::currentRouteName() == 'setup' ? 'text-pink-500 hover:text-pink-600' : 'text-blueGray-700 hover:text-blueGray-500' }} ">
+                      <i class="fas fa-users mr-2 text-sm text-blueGray-300"></i>
+                      My setup
+                  </a>
+              </li>
+
+
+                @if (auth()->user()->is_admin)
+                    <li class="items-center">
+                        <a href="{{ route('users.index') }}"
+                            class="text-xs uppercase py-3 font-bold block
                         {{ Route::currentRouteName() == 'users.index' ? 'text-pink-500 hover:text-pink-600' : 'text-blueGray-700 hover:text-blueGray-500' }} ">
-                        <i class="fas fa-users mr-2 text-sm text-blueGray-300"></i>
-                        Users
-                    </a>
+                            <i class="fas fa-users mr-2 text-sm text-blueGray-300"></i>
+                            All Users
+                        </a>
+                    </li>
+                @endif
+
+                @if (auth()->user()->getDownlines())
+                    <li class="items-center">
+                        <a href="{{ route('users.show.downlines', auth()->user()->id) }}"
+                            class="text-xs uppercase py-3 font-bold block
+                        {{ Route::currentRouteName() == 'users.show.downlines' ? 'text-pink-500 hover:text-pink-600' : 'text-blueGray-700 hover:text-blueGray-500' }} ">
+                            <i class="fas fa-users mr-2 text-sm text-blueGray-300"></i>
+                            My Downlines
+                        </a>
+                    </li>
+                @endif
+                <li class="items-center mt-5">
+                    <hr class="my-4 md:block md:min-w-full" />
+                    <form action="{{ route('logout') }}" method="post"> @csrf
+                        <button type="submit">
+                            <i class="fas fa-power-off mr-2 text-sm text-red-400"></i>
+                            <span class="text-red-400">Logout</span>
+                        </button>
+                    </form>
                 </li>
 
                 {{-- others --}}

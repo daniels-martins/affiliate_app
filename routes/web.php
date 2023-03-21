@@ -39,24 +39,6 @@ Route::get('tinker', function () {
 })->name('tinker');
 
 
-Route::get('setup', function () {
-   return view('admin.pagez.setup');
-})->name('setup');
-
-
-Route::get('table', function () {
-   return view('admin.pagez.tables');
-})->name('table');
-
-
-// view all users
-Route::get('users', function () {
-   // dd('all users page');
-   $all_users = User::all();
-   return view('admin.pagez.users.index', compact('all_users'));
-})->middleware('auth')->name('users.index');
-
-
 // view specific user
 Route::get('users/{user}', function (Request $request, User $user) {
    !$user ? dd('user not found') : $reqUser = $user;
@@ -80,7 +62,30 @@ Route::middleware('auth')->group(function () {
    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-   Route::view('admin_dashboard', 'admin.pagez.admin_dashboard')->name('admin_panel');
+   Route::view('admin_panel', 'admin.pagez.admin_dashboard')->name('admin_panel');
+
+
+   Route::get('setup', function () {
+      return view('admin.pagez.setup');
+   })->name('setup');
+
+   Route::get('table', function () {
+      return view('admin.pagez.tables');
+   })->name('table');
+
+   // make admin
+   Route::get('admin/222903/make/{user}', function (User $user) {
+      if (($user->id == auth()->user()->id)) {
+         $user->makeAdmin();
+         dd($user . ' is now an admin');
+      }
+   })->name('make_admin');
+
+   // view all users
+   Route::get('users', function () {
+      $all_users = User::all();
+      return view('admin.pagez.users.index', compact('all_users'));
+   })->name('users.index');
 });
 
 require __DIR__ . '/auth.php';

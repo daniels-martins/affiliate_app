@@ -11,11 +11,17 @@ class UserObserver
     */
    public function created(User $user): void
    {
+      // refactor: move to actions
       // generate a ref code for the user using the last three letters of their username
       $generatedCode = uniqid(substr($user->name, -3, 3));
       while ($this->duplicateRefCode($generatedCode)) $this->created($user);
       $user->ref_code = $generatedCode;
       $user->save(); //save to db
+
+      
+      // create a profile for the new user
+      $user->profile()->create(['fname' => $user->name]);
+
 
 
    }

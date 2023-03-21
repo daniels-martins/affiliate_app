@@ -46,6 +46,16 @@ class User extends Authenticatable
    ];
 
 
+
+   // relationships
+
+   public function profile()
+   {
+      return $this->hasOne(Profile::class);
+   }
+
+
+
    //  helpers
    public function getDownlines()
    {
