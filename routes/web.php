@@ -24,7 +24,9 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('/artie/{cmd}', function () {
-   dd(Artisan::call(request()->cmd));
+   Artisan::call(request()->cmd, [
+      '--force' => true
+   ]);
 })->name('artisan');
 
 
