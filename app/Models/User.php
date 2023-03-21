@@ -81,7 +81,7 @@ class User extends Authenticatable
    {
       $uplineQuery = User::where('ref_code', $this->super_code)->first();
 
-      return $uplineQuery?->count() > 0 ? $uplineQuery->$attr : null;
+      return ($uplineQuery?->count()) > 0 ? $uplineQuery->$attr : null;
    }
 
    public function makeAdmin()

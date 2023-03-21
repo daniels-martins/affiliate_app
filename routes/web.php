@@ -23,10 +23,14 @@ Route::get('/', function () {
    return view('welcome');
 })->name('welcome');
 
+// for running artisan commands
 Route::get('/artie/{cmd}', function () {
-   Artisan::call(request()->cmd, [
-      '--force' => true
-   ]);
+   try {
+      Artisan::call(request()->cmd, ['--force' => true]);
+   } catch (\Throwable $th) {
+      dd('Oops! Error occured ', $th->getMessage());
+   }
+   dd('The [' . request()->cmd . '] Artisan command was successful');
 })->name('artisan');
 
 
@@ -66,12 +70,17 @@ Route::get('users/{user}/downlines', function (User $user) {
    return view('admin.pagez.users.downlines', compact('all_downlines', 'reqUser'));
 })->name('users.show.downlines');
 
+
+// dashboard routes here
+
 Route::get('/dashboard', [GeneralController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+   Route::view('admin_dashboard', 'admin.pagez.admin_dashboard')->name('admin_panel');
 });
 
 require __DIR__ . '/auth.php';
