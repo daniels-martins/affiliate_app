@@ -1,3 +1,7 @@
 made a little change in this file to incite a github action
 
 
+
+color: #F36F6F
+#FD3E3E
+bg: #FEF2F2
