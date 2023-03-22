@@ -1,6 +1,6 @@
 made a little change in this file to incite a github action
 
-
+look for this in your code base : "enable link to admin panel"
 
 color: #F36F6F
 #FD3E3E

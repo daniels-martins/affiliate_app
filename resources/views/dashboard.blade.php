@@ -12,6 +12,7 @@
                         <div class="account_summary">
                             Brief Summary
                         </div>
+                        {{-- enable link to admin panel --}}
                         <div class="admin-panel-link">
                             <a class="text-white bg-blue-500 py-2 px-4 hover:bg-blue-400  rounded"
                                 href="{{ route('admin_panel') }}"> View Admin Panel</a>
