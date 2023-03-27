@@ -24,6 +24,10 @@ class User extends Authenticatable
       'email',
       'password',
       'super_code',
+      'referrer',
+      'bank_name',
+      'bank_account_name',
+      'bank_account_num'
    ];
 
    /**

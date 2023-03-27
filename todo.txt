@@ -5,3 +5,13 @@ look for this in your code base : "enable link to admin panel"
 color: #F36F6F
 #FD3E3E
 bg: #FEF2F2
+
+
+Realtor ls to be able to add their bank account when registering and the name of their upline, 
+Solution create migration and add bank_account info as part of user table data
+
+
+and lets take away the otwell sponsor, change to the link to our special offer   ---done 
+
+Required: 
+Sir, we need a dark version of their logo, that can go in the fav icon
