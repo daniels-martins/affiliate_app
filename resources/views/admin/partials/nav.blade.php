@@ -10,12 +10,16 @@
         <a class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
             href="{{ route('admin_panel') }}">
             ADMIN PANEL <br><br>
-            ADMIN: {{ auth()->user()->name }} <br><br>
-            <span class="bg-red-200 py-3 ">
+            @if (auth()->user()->is_admin)
+                ADMIN: {{ auth()->user()->name }} <br><br>
+                <a href="{{ route('users.index') }} " class="underline">View All Users</a>
+            <span class="py-3 ">
                 @if (isset($reqUser) and $reqUser->id !== auth()->user()->id)
                     VIEWING: ({{ $reqUser->name }})
                 @endif
             </span>
+            @endif
+           
         </a>
         {{-- <ul class="md:hidden items-center flex flex-wrap list-none">
             <li class="inline-block relative">

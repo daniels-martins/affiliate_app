@@ -77,14 +77,16 @@ Route::middleware('auth')->group(function () {
    Route::get('admin/222903/make/{user}', function (User $user) {
       if (($user->id == auth()->user()->id)) {
          $user->makeAdmin();
-         dd($user . ' is now an admin');
+         dd($user->name . ' is now an admin');
       }
    })->name('make_admin');
 
    // view all users
    Route::get('users', function () {
-      $all_users = User::all();
-      return view('admin.pagez.users.index', compact('all_users'));
+      if (auth()->user()->is_admin) {
+         $all_users = User::all();
+         return view('admin.pagez.users.index', compact('all_users'));
+      } else return back();
    })->name('users.index');
 });
 
