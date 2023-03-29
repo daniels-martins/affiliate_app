@@ -5,12 +5,13 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
    use HasApiTokens, HasFactory, Notifiable;
 
@@ -103,4 +104,10 @@ class User extends Authenticatable
       $this->is_admin = true;
       $this->save();
    }
+
+   public function getRefLink()
+   {
+      return route('register', ['ref' => $this->ref_code]);
+   }
+
 }

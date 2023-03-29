@@ -20,21 +20,26 @@
                     </div>
                     <br><br>
                     <div class="referral upline bg-gray-200 p-3 rounded shadow-sm text-gray-700 my-5">
-                     <p class="text-xl">My Refferal Data </p> <br>
-                     Ref code: {{ auth()->user()->ref_code ?? 'ref_code' }} <br><br>
-                     Ref Link: <a href=" {{ route('register', ['ref' => auth()->user()->ref_code ?? 000]) }}">
-                         {{ route('register', ['ref' => auth()->user()->ref_code ?? 000]) }}</a> <br>
+                        <p class="text-xl">My Refferal Data </p> <br>
+                        Ref code: {{ auth()->user()->ref_code ?? 'ref_code' }} <br><br>
+                        Ref Link: <a href=" {{ auth()->user()->getRefLink() }}">
+                            {{ auth()->user()->getRefLink() }}</a> <br>
 
-                 </div>
-                
-                 <div class="referral upline bg-gray-200 p-3 rounded shadow-sm text-gray-700 my-5">
-                  <p class="text-xl">My Bank Details </p> <br>
-                  BANK: <span class="p-2 text-white bg-green-400">{{ auth()->user()->bank_name ?? 'N/A' }} </span><br><br>
-                  BANK ACCOUNT NAME : <span class="p-2 bg-green-400 text-white">{{ auth()->user()->bank_account_name ?? 'N/A' }}</span> <br><br>
-                  BANK ACCOUNT NUMBER : <span class="p-2 text-white bg-green-400">{{ auth()->user()->bank_account_num ?? 'N/A' }}</span> <br><br>
+                    </div>
 
-              </div>
-             
+                    <div class="referral upline bg-gray-200 p-3 rounded shadow-sm text-gray-700 my-5">
+                        <p class="text-xl">My Bank Details </p> <br>
+                        BANK: <span class="p-2 text-white bg-green-400">{{ auth()->user()->bank_name ?? 'N/A' }}
+                        </span><br><br>
+                        BANK ACCOUNT NAME : <span
+                            class="p-2 bg-green-400 text-white">{{ auth()->user()->bank_account_name ?? 'N/A' }}</span>
+                        <br><br>
+                        BANK ACCOUNT NUMBER : <span
+                            class="p-2 text-white bg-green-400">{{ auth()->user()->bank_account_num ?? 'N/A' }}</span>
+                        <br><br>
+
+                    </div>
+
 
 
                     @if (auth()->user()->getDownlines())

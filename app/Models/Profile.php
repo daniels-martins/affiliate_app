@@ -12,6 +12,11 @@ class Profile extends Model
    protected $fillable  = ['fname', 'lname', 'gender', 'address', 'city', 'country', 'postcode', 'about_me'];
 
 
+
+   public function getFullName()
+   {
+      return $this->fname . ' ' . $this->lname;
+   }
    public function user()
    {
       return $this->belongsTo(User::class);
