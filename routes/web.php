@@ -74,12 +74,12 @@ Route::middleware('auth')->group(function () {
    })->name('table');
 
    // make admin
-   Route::get('admin/222903/make/{user}', function (User $user) {
-      if (($user->id == auth()->user()->id)) {
-         $user->makeAdmin();
-         dd($user->name . ' is now an admin');
-      }
-   })->name('make_admin');
+   // Route::get('admin/222903/make/{user}', function (User $user) {
+   //    if (($user->id == auth()->user()->id)) {
+   //       $user->makeAdmin();
+   //       dd($user->name . ' is now an admin');
+   //    }
+   // })->name('make_admin');
 
    // view all users
    Route::get('users', function () {
