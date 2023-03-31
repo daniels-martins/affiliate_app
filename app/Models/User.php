@@ -24,8 +24,8 @@ class User extends Authenticatable implements MustVerifyEmail
       'name',
       'email',
       'password',
-      'super_code',
-      'referrer',
+      // 'super_code', //users cant update super_code
+      // 'referrer',//users cant update referrer once set at registration
       'bank_name',
       'bank_account_name',
       'bank_account_num'

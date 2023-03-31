@@ -24,10 +24,7 @@
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     NAME AND PHOTO
                                 </th>
-                                <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
-                                    INCOME
-                                </th>
+                               
                                 <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     role
@@ -46,10 +43,10 @@
                                     Referral <br> links
                                 </th>
 
-                                <th
+                                {{-- <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-right bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     Actions
-                                </th>
+                                </th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -63,10 +60,6 @@
                                             <a href="{{ route('users.show', $user->id) }}">{{ ucfirst($user->name) }}</a>
                                         </span>
                                     </th>
-                                    <td
-                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {{ '$2,500 USD' }}
-                                    </td>
                                     <td
                                         class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         <i
@@ -100,9 +93,9 @@
 
                                     <td
                                         class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        <a href="{{ route('register', ['ref' => $user->ref_code]) }}"> REFERRAL LINK</a>
+                                        <a href="{{ route('register', ['ref' => $user->ref_code]) }}">USER REFERRAL LINK</a>
                                     </td>
-                                    <td
+                                    {{-- <td
                                         class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                                         <a href="#pablo" class="text-blueGray-500 block py-1 px-3"
                                             onclick="openDropdown(event,'table-light-1-dropdown')">
@@ -122,7 +115,7 @@
                                                 class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">Seprated
                                                 link</a>
                                         </div>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                             <tr>

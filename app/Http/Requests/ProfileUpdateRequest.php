@@ -26,7 +26,12 @@ class ProfileUpdateRequest extends FormRequest
          'city' => 'nullable|min:4',
          'country' => 'nullable|min:4',
          'postcode' => 'nullable|min:4',
-         'about_me' => 'nullable|min:4'
+         'about_me' => 'nullable|min:4',
+
+         // bank information 
+         'bank_name' => 'nullable|min:3',
+         'bank_account_name'  => 'nullable|min:3',
+         'bank_account_num'  => 'nullable|min:3',
       ];
    }
 
