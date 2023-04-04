@@ -26,10 +26,6 @@
                                 </th>
                                 <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
-                                    INCOME
-                                </th>
-                                <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     role
                                 </th>
                                 <th
@@ -63,10 +59,6 @@
                                             <a href="{{ route('users.show', $reqUserDownline->id) }}">{{ ucfirst($reqUserDownline->name) }}</a>
                                         </span>
                                     </th>
-                                    <td
-                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {{ '$2,500 USD' }}
-                                    </td>
                                     <td
                                         class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         <i

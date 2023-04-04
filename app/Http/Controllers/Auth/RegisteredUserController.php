@@ -32,20 +32,25 @@ class RegisteredUserController extends Controller
    public function store(Request $request): RedirectResponse
    {
       // dd($request->all());
-      $final  = $request->validate([
-         'name' => ['required', 'string', 'max:255'],
-         'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-         'password' => ['required', 'confirmed', Rules\Password::defaults()],
-         'super_code' => ['sometimes', 'min:5', 'max:255'],
+      $validated  = $request->validate([
+         'name'               =>       ['required', 'string', 'max:255'],
+         'email'              =>       ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+         'password'           =>       ['required', 'confirmed', Rules\Password::defaults()],
+         'super_code'         =>       ['sometimes', 'min:5', 'max:255'],
+         'referrer'           =>       "required|min:3|max:20",
+         'bank_name'          =>       "required|min:3|max:50",
+         'bank_account_name'  =>       "required|min:3|max:50",
+         'bank_account_num'   =>       "required|size:10",
       ]);
 
-      $user = User::create([
-         'name' => $request->name,
-         'email' => $request->email,
-         'password' => Hash::make($request->password),
-         'super_code' => $request->super_code ?? null,
-
-      ]);
+      // $user = User::create([
+      //    'name' => $request->name,
+      //    'email' => $request->email,
+      //    'password' => Hash::make($request->password),
+      //    'super_code' => $request->super_code ?? null,
+      // ]);
+      // dd($validated, $request->all());
+      $user = User::create($validated);
 
       event(new Registered($user));
 

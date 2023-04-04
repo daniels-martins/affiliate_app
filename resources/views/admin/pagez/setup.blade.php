@@ -7,10 +7,9 @@
                 <div class="rounded-t bg-white mb-0 px-6 py-6">
                     @if ($errors->any())
                         <div class="alert alert-danger p-5">
-                            <ul class="bg-red-500 rounded p-4 text-white">
+                            <ul class="bg-red-200 rounded p-4 text-red-500">
                                 @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    <li>{{ 'dudo' }}</li>
+                                    <li class="mb-3">{{ $error }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -29,7 +28,8 @@
                 </div>
 
                 <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-                    <form method="post" action="{{ route('profile.update') }}" novalidate>@csrf @method('patch')
+                    <form method="post" action="{{ route('profile.update') }}" novalidate>
+                        @csrf @method('patch')
                         <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
                             User Information
                         </h6>
@@ -42,7 +42,7 @@
                                     <input type="text" name="name" id="name"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow 
                                         focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ old('name') ?? auth()->user()->name }}" />
+                                        value="{{ old('name', auth()->user()->name) }}" />
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -53,7 +53,7 @@
                                     <input type="email" name="email" id="email"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow 
                                         focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ old('email') ?? auth()->user()->email }}" />
+                                        value="{{ old('email', auth()->user()->email) }}" />
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -63,8 +63,8 @@
                                     </label>
                                     <input type="text" name="fname" id="fname"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow 
-                                        focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ old('fname') ?? auth()->user()->fname }}" />
+                                        focus:outline-none focus:ring w-full ease-linear transition-all duration-150 capitalize "
+                                        value="{{ old('fname', auth()->user()->profile->fname) }}" />
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
@@ -74,7 +74,7 @@
                                     </label>
                                     <input type="text" name="lname" id="lname"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ old('lname') ?? auth()->user()->lname }}" />
+                                        value="{{ old('lname', auth()->user()->profile->lname) }}" />
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                                     </label>
                                     <input type="text" id="address" name="address"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ old('"address"') ?? auth()->user()->address }}" />
+                                        value="{{ old('address', auth()->user()->profile->address) }}" />
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -102,7 +102,7 @@
                                     </label>
                                     <input type="text" id="city" name="city"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ old('"city"') ?? auth()->user()->city }}" />
+                                        value="{{ old('city', auth()->user()->profile->city) }}" />
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -112,7 +112,7 @@
                                     </label>
                                     <input type="text" id="country" name="country"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ old('"country"') ?? auth()->user()->country }}" />
+                                        value="{{ old('country', auth()->user()->profile->country) }}" />
                                 </div>
                             </div>
                             <div class="w-full lg:w-4/12 px-4">
@@ -122,7 +122,7 @@
                                     </label>
                                     <input type="text" id="postcode" name="postcode"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        value="{{ old('"postcode"') ?? auth()->user()->postcode }}" />
+                                        value="{{ old('postcode', auth()->user()->profile->postcode) }}" />
                                 </div>
                             </div>
                         </div>
@@ -140,12 +140,14 @@
                                     </label>
                                     <div class="flex flex-wrap justify-even my-4">
                                         <label for="male"> Male
-                                            <input type="radio" name="gender" id="male" value="male">
+                                            <input type="radio" name="gender" id="male" value="M"
+                                                @if (auth()->user()->profile->gender == 'M') checked @endif>
                                         </label>
 
                                         <label for="female">
                                             Female
-                                            <input type="radio" name="gender" id="female" value="female">
+                                            <input type="radio" name="gender" id="female" value="F"
+                                                @if (auth()->user()->profile->gender == 'F') checked @endif>
                                         </label>
                                     </div>
 
@@ -156,10 +158,58 @@
                                     <textarea type="text" id="about_me" name="about_me"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow
                                         focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        rows="4">A beautiful UI Kit and Admin for JavaScript & Tailwind CSS. It is Free and Open Source.</textarea>
+                                        rows="4">{{ old('about_me', auth()->user()->profile->about_me) }}</textarea>
                                 </div>
                             </div>
                         </div>
+
+                        <hr class="mt-6 border-b-1 border-blueGray-300" />
+
+                        <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                            Bank Information
+                        </h6>
+
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="bank_name">
+                                    Bank Name
+                                </label>
+                                <input type="text" name="bank_name" id="bank_name" placeholder="eg. GTBank"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow 
+                               focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="{{ old('bank_name', auth()->user()->bank_name) }}" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    for="bank_account_name">
+                                    Account Holder's Name
+                                </label>
+                                <input type="text" name="bank_account_name" id="bank_account_name"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow 
+                            focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="{{ old('bank_account_name', auth()->user()->bank_account_name) }}" />
+                            </div>
+                        </div>
+
+
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    for="bank_account_num">
+                                    Bank Account Number
+                                </label>
+                                <input type="bank_account_num" name="bank_account_num" id="bank_account_num"
+                                    placeholder="10 digits allowed" minlength=10 maxlength="10"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow 
+                         focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    value="{{ old('bank_account_num', auth()->user()->bank_account_num) }}" />
+                            </div>
+                        </div>
+
+
 
                         <button type="submit"
                             class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"

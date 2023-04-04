@@ -22,9 +22,11 @@
 <body class="text-blueGray-700 antialiased">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-        @include('admin.partials.nav'){{-- for pc side-menu --}}
+        {{-- for pc side-menu --}}
+        @include('admin.partials.nav')
         <div class="relative md:ml-64 bg-blueGray-50">
-            @include('admin.partials.nav2'){{-- for mobile  --}}
+            {{-- for mobile  --}}
+            @include('admin.partials.nav2')
             <!-- Header -->
             {{-- the header element goes here --}}
             @include('admin.partials.header')
@@ -38,5 +40,4 @@
     @include('admin.partials.static_scripts')
     @stack('page_scripts')
 </body>
-
 </html>

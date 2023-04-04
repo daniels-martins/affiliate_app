@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('content')
-{{-- {{  dd($user ?: null, auth()->user()) }} --}}
+    {{-- {{  dd($user ?: null, auth()->user()) }} --}}
 
     <div class="flex flex-wrap mt-4">
         <div class="w-full mb-12 px-4">
@@ -10,7 +10,7 @@
                     <div class="flex flex-wrap items-center">
                         <div class="relative w-full px-4 max-w-full flex-grow flex-1">
                             <h3 class="font-semibold text-lg text-blueGray-700">
-                                All Users 
+                                All Users
                             </h3>
                         </div>
                     </div>
@@ -24,18 +24,24 @@
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     NAME AND PHOTO
                                 </th>
-                                <th
-                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
-                                    INCOME
-                                </th>
+
                                 <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     role
                                 </th>
+
+                                {{-- for verification status : verified or not verified --}}
                                 <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
-                                    latest referrals
+                                    Verification Status
                                 </th>
+
+                                {{-- shows joined date --}}
+                                <th
+                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                    Joined
+                                </th>
+
                                 <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     total <br> downlines
@@ -43,36 +49,64 @@
 
                                 <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
-                                    Referral <br> links
+                                    latest referrals
                                 </th>
 
                                 <th
+                                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                    Referral <br> links
+                                </th>
+
+                                {{-- <th
                                     class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-right bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     Actions
-                                </th>
+                                </th> --}}
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($all_users as $user)
                                 <tr>
-                                    <th
+                                    {{-- nanme and photo --}}
+                                    <td
                                         class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                                         <img src="/static/admin_assets/img/bootstrap.jpg"
                                             class="h-12 w-12 bg-white rounded-full border" alt="..." />
                                         <span class="ml-3 font-bold text-blueGray-600">
                                             <a href="{{ route('users.show', $user->id) }}">{{ ucfirst($user->name) }}</a>
                                         </span>
-                                    </th>
-                                    <td
-                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {{ '$2,500 USD' }}
                                     </td>
+                                    {{-- role --}}
                                     <td
-                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4
+                                        {{ $user->is_admin ? 'text-red-500 mr-2 font-bold' : 'text-emerald-500 mr-2' }}">
                                         <i
-                                            class="fas fa-circle {{ $user->is_admin ? 'text-orange-500 mr-2' : 'text-emerald-500 mr-2' }}"></i>
+                                            class="fas fa-circle"></i>
                                         <span class="uppercase"> {{ $user->is_admin ? 'admin' : 'client' }}</span>
                                     </td>
+
+                                    {{-- status --}}
+
+                                    <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4
+                                        {{ $user->hasVerifiedEmail() ? 'text-emerald-500 mr-2' : 'text-orange-500 mr-2' }}">
+                                        <i
+                                            class="fas fa-circle"></i>
+                                        <span class="uppercase">
+                                            {{ $user->hasVerifiedEmail() ? 'Verified' : 'Not Verified' }}</span>
+                                    </td>
+
+                                    {{-- joined --}}
+                                    <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                        {{ $user->created_at }}
+                                    </td>
+
+                                    <td
+                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                        {{ $user->getDownlines()?->count() ?? 0 }}
+                                    </td>
+
+
                                     <td
                                         class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         <div class="flex">
@@ -93,16 +127,13 @@
                                         </div>
                                     </td>
 
-                                    <td
-                                        class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {{ $user->getDownlines()?->count() ?? 0 }}
-                                    </td>
 
                                     <td
                                         class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        <a href="{{ route('register', ['ref' => $user->ref_code]) }}"> REFERRAL LINK</a>
+                                        <a href="{{ route('register', ['ref' => $user->ref_code]) }}">USER REFERRAL
+                                            LINK</a>
                                     </td>
-                                    <td
+                                    {{-- <td
                                         class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                                         <a href="#pablo" class="text-blueGray-500 block py-1 px-3"
                                             onclick="openDropdown(event,'table-light-1-dropdown')">
@@ -122,7 +153,7 @@
                                                 class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">Seprated
                                                 link</a>
                                         </div>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                             <tr>

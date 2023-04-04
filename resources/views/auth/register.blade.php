@@ -5,8 +5,7 @@
             background: gray;
         }
     </style>
-
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" novalidate>
         @csrf
 
         <!-- Name -->
@@ -17,6 +16,7 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
+
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
@@ -25,7 +25,42 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        {{-- -------------------------- --}}
+        <!-- Bank Name eg. GTB-->
+        <div class="mt-4">
+            <x-input-label for="bank_name" :value="__('Bank Name')" />
+            <x-text-input id="bank_name" class="block mt-1 w-full" type="text" name="bank_name" :value="old('bank_name')"
+                required placeholder="eg Bank of America" />
+            <x-input-error :messages="$errors->get('bank_name')" class="mt-2" />
+        </div>
 
+        <!-- Bank Account Name eg Jon Doe -->
+        <div class="mt-4">
+            <x-input-label for="bank_account_name" :value="__('Bank Account Name')" />
+            <x-text-input id="bank_account_name" class="block mt-1 w-full" type="text" name="bank_account_name"
+                :value="old('bank_account_name')" required
+                placeholder="This should be the same as the name on your bank account and BVN" />
+            <x-input-error :messages="$errors->get('bank_account_name')" class="mt-2" />
+        </div>
+
+        <!-- Bank Acc. Number -->
+        <div class="mt-4">
+            <x-input-label for="bank_account_num" :value="__('Bank Account Number')" />
+            <x-text-input id="bank_account_num" class="block mt-1 w-full" type="text" minlength=10 maxlength=10
+                name="bank_account_num" :value="old('bank_account_num')" required />
+            <x-input-error :messages="$errors->get('bank_account_num')" class="mt-2" />
+        </div>
+
+
+        <!-- Referal Name -->
+        <div class="mt-4">
+            <x-input-label for="referrer" :value="__('Name of Referrer')" />
+            <x-text-input id="referrer" class="block mt-1 w-full" type="text" name="referrer" :value="old('referrer')"
+                required />
+            <x-input-error :messages="$errors->get('referrer')" class="mt-2" />
+        </div>
+
+        {{-- ----------------------------------------------- --}}
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />

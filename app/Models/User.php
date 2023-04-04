@@ -5,14 +5,16 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Carbon\Carbon;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailInterface;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmailInterface
 {
-   use HasApiTokens, HasFactory, Notifiable;
+   use HasApiTokens, HasFactory, Notifiable, MustVerifyEmailTrait;
 
    /**
     * The attributes that are mass assignable.
@@ -23,7 +25,11 @@ class User extends Authenticatable
       'name',
       'email',
       'password',
-      'super_code',
+      // 'super_code', //users cant update super_code
+      // 'referrer',//users cant update referrer once set at registration
+      'bank_name',
+      'bank_account_name',
+      'bank_account_num'
    ];
 
    /**
@@ -44,6 +50,16 @@ class User extends Authenticatable
    protected $casts = [
       'email_verified_at' => 'datetime',
    ];
+
+
+
+   // relationships
+
+   public function profile()
+   {
+      return $this->hasOne(Profile::class);
+   }
+
 
 
    //  helpers
@@ -81,7 +97,7 @@ class User extends Authenticatable
    {
       $uplineQuery = User::where('ref_code', $this->super_code)->first();
 
-      return $uplineQuery?->count() > 0 ? $uplineQuery->$attr : null;
+      return ($uplineQuery?->count()) > 0 ? $uplineQuery->$attr : null;
    }
 
    public function makeAdmin()
@@ -89,4 +105,10 @@ class User extends Authenticatable
       $this->is_admin = true;
       $this->save();
    }
+
+   public function getRefLink()
+   {
+      return route('register', ['ref' => $this->ref_code]);
+   }
+
 }
