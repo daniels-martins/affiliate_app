@@ -10,3 +10,12 @@ bg: #FEF2F2
 The christian bookstore is the therapy for believers in the faith.
 poverty is a social disease. poverty is evil and is a work of darkness. it takes the workin of light to subdue it.
 poverty is as wicked as sickness
+
+
+Best document ready syntax
+
+document.onreadystatechange = () => {
+  if (document.readyState === "interactive") {
+    initApplication();
+  }
+};
